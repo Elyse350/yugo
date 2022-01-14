@@ -1,0 +1,30 @@
+{
+  "name": "yugo-bend",
+  "version": "1.0.0",
+  "description": "this is the platform of yugo",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node ./index.js",
+    "dev-start": "nodemon --exec babel-node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "elyse",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.12.10",
+    "@types/node": "^14.14.22",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.5",
+    "nodemon": "^2.0.15"
+  }
+}
