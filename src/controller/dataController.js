@@ -1,5 +1,5 @@
-import dataInfos from "../models/data";
-import houseInfos from "../models/house"
+import dataInfos from "../models/tenant";
+import houseInfos from "../models/landlord";
 class dataController{
 
     static async createInfos(req,res){
