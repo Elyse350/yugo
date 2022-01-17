@@ -1,6 +1,7 @@
 import express from "express"; 
 import Validator from "../middleware/validator";
 import dataController from "../controller/dataController"
+// import dataChecker from "../middleware/datachecker";
 const dataRouter = express.Router();
 
 dataRouter.post("/house", dataController.createInfos);
