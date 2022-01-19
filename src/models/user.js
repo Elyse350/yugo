@@ -22,11 +22,11 @@ const userSchema = new mongoose.Schema(  // Scheam is a format or a structure of
            enum:["male","female","other","not-say"],  //enum list data to be registered inside these data no other data will be rejected
        }, 
      
-    // role:{
-    //     type:String,
-    //     enum:["admin","user"],
-    //     default:"user"
-    //    }
+    role:{
+        type:String,
+        enum:["admin","user"],
+        default:"user"
+        }
     },
        {
            timestamps: true,  // means igihe byabereye stored

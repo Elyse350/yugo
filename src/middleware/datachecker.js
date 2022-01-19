@@ -21,4 +21,4 @@ class dataChecker{
     }
   
 }
-export default dataChecker
+export default dataChecker;
