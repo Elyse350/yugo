@@ -2,7 +2,8 @@ const verifyAccess=(requiredRole)=>{
     return async(req,res,next)=>{
         try{
          const {role}=req.user;
-         if(requiredRole !=role){
+         console.log(role, requiredRole);
+         if(requiredRole.trim().toLowerCase() !=role.trim().toLowerCase()){
              return res
              .status(401)
              .json({error:"UnAthorized! you dont have access to this api"}) ;                
