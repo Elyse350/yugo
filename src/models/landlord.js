@@ -3,11 +3,9 @@ const dataSchema = new mongoose.Schema(  // Scheam is a format or a structure of
     {
         HouseNumber:{
             type:Number,
-            required:true
         },
         turnateName:{
-            type:String,
-            required:true
+            type:String , 
         },
         payement:{
             type:String,
@@ -20,6 +18,10 @@ const dataSchema = new mongoose.Schema(  // Scheam is a format or a structure of
             type:mongoose.Schema.ObjectId,
             ref: "User"
         },
+        landlord: {
+            type:mongoose.Schema.ObjectId,
+            ref: "Landlord"
+        },
     
     },
        {
@@ -29,6 +31,8 @@ const dataSchema = new mongoose.Schema(  // Scheam is a format or a structure of
 dataSchema.pre(/^find/,function(next){
     this.populate({path:"user",
 select: "lastName email address"
+    }).populate({
+        path:"landlord",
     });
     next();
 })

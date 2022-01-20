@@ -3,16 +3,20 @@ const houseSchema = new mongoose.Schema(  // Scheam is a format or a structure o
     {
         landLordName:{
             type:String,
-            required:true
+        
         },
         numberofhouse:{
             type:Number,
-            required:true
+            
         },
         houseNumber:{
             type:Number,
-            required:true
+            
 
+        },
+        user: {
+            type:mongoose.Schema.ObjectId,
+            ref: "User"
         },
         payement:{
             type:String,
@@ -26,7 +30,13 @@ const houseSchema = new mongoose.Schema(  // Scheam is a format or a structure o
            timestamps: true,  // means igihe byabereye stored
        }
 );
+houseSchema.pre(/^find/,function(next){
+    this.populate({path:"user",
+     select:"lastname email address"
+ });
+    next();
+})
 
-const house = mongoose.model('house',houseSchema);
+const house = mongoose.model('ourHouse',houseSchema);
 
 export default house;
