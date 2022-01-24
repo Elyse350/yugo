@@ -19,5 +19,6 @@ userRouter.post("/pay/:id",VerifyToken,VerifyAccess("user"),UserController.tenan
 userRouter.get('/pays/all',UserController.getAlltenantPayed);
 userRouter.get("/pay/:id",VerifyToken,VerifyAccess("admin"),UserController.getAlltenantPayedByTenantId);
 userRouter.get("/payed/:id",VerifyToken,VerifyAccess("user"),UserController.getAlltenantPayedByUserId);
+userRouter.patch("/tenant/payment",VerifyToken,VerifyAccess("admin"),UserController.changeTenantPayment);
 
 export default userRouter;

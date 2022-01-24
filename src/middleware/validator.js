@@ -32,10 +32,7 @@ class Validator {
             check ("landLordName","LandLordName is invalid").trim().isAlpha(),
             check("numberofhouse","number of house be valid").trim().isNumeric(),
             check("houseNumber","houseNumber should be valid").trim().isNumeric(),
-            check( "payement", "payment should be paid ,not paid,pending").trim()
-                           .isIn(["pending", "paid", "not paid"]),
-                    ];
-        
-    }
+        ];
+}
 }
 export default Validator;

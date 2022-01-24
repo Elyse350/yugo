@@ -1,5 +1,6 @@
+
 import mongoose from 'mongoose';
-const houseSchema = new mongoose.Schema(  // Scheam is a format or a structure of our model, it will generate our model in db
+const houseSchema = new mongoose.Schema(  // Scheama is a format or a structure of our model, it will generate our model in db
     {
         landLordName:{
             type:String,
@@ -14,16 +15,16 @@ const houseSchema = new mongoose.Schema(  // Scheam is a format or a structure o
             
 
         },
+         images:[
+         {
+             type:String,
+         },
+     ],
         user: {
             type:mongoose.Schema.ObjectId,
             ref: "User"
         },
-        payement:{
-            type:String,
-            enum:["pending","paid","not paid"],
-        default:"pending"
-
-        },
+       
         
     },
        {
@@ -32,11 +33,11 @@ const houseSchema = new mongoose.Schema(  // Scheam is a format or a structure o
 );
 houseSchema.pre(/^find/,function(next){
     this.populate({path:"user",
-     select:"lastname email address"
+     select:"lastName email address"
  });
     next();
 })
 
-const house = mongoose.model('ourHouse',houseSchema);
+const house = mongoose.model('House',houseSchema);
 
 export default house;
