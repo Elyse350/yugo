@@ -1,9 +1,8 @@
 import UserInfos from "../models/user";
-import user from "../models/user";
 import bcrypt from "bcrypt";
 import TokenAuth from "../helper/tokenAuth";
-import TenantInfos from"../models/tenant";
-import LandlordInfos from "../models/landlord";
+import LandlordInfos from"../models/landlordInfo";
+import AtenantpayInfos from "../models/atenantpay";
 class UserController{
     //create user in db
     static async createUser(req,res){
@@ -67,23 +66,24 @@ class UserController{
 static async tenantpay (req,res){
     const tenantData={
         user:req.user._id,
-        landlord:req.params.id
+        house:req.params.id
     };
-    const tenant=await TenantInfos.create(tenantData);
-
-    const landlord=await LandlordInfos.findById(req.params.id);
-    //console.log(landlord);
-    //const lardlordNumb=landlord.HouseNumber-1;
-    //await LandlordInfos.findByIdAndUpdate(req.params.id,{HouseNumber:lardlordNumb});
+    const tenant=await  AtenantpayInfos.create(tenantData);
+    const house =await  LandlordInfos.findById(req.params.id);
+    
+    
+    console.log(house);
+    const Nofhouse=house.numberofhouse -1;
+    await LandlordInfos.findByIdAndUpdate(req.params.id,{numberofhouse:Nofhouse});
     if(!tenant){
-        return res .status (400).json({error:"failed  to pay the gabbage disposal"});
+        return res.status (400).json({error:"failed  to pay the gabbage disposal"});
     }
     return res.status(200).json({message:"payed sussefull the gabbage  disposal",data:tenant});
 
 }
 // get all the payed tenant
 static async getAlltenantPayed(req,res){
-    const tenantPayed =await TenantInfos.find();
+    const tenantPayed =await AtenantpayInfos.find();
     if(!tenantPayed){
         return res.status(400).json({error:"No payment from the tenant"});
 
@@ -92,21 +92,41 @@ static async getAlltenantPayed(req,res){
 }
 // getALLtenantby tenantid
 static async getAlltenantPayedByTenantId(req,res){
-    const tenantPayed=await TenantInfos.find({tenant:req.params.id});
+    const tenantPayed=await AtenantpayInfos.find({house:req.params.id});
     if(!tenantPayed){
+
         return res.status(400).json({error:"No payment from the tenant"})
     }
     return res.status(200).json({message:"retrieved all the tenant paymnt successfully",data:tenantPayed});
     }
 //getall tenant by userid
     static async getAlltenantPayedByUserId(req,res){
-        const tenantPayed=await TenantInfos.find({user:req.params._id});
+        const tenantPayed=await AtenantpayInfos.find({user:req.params.id});
         if(!tenantPayed){
             return res.status(400).json({error:"No payment from the tenant"})
         }
         return res.status(200).json({message:"retrieved all the tenant paymnt successfull",data:tenantPayed})
         }
 
+    //Accept or decline/cancel
+    static async changeTenantPayment(req,res){
+        
+        const{id,payment} = req.body                       
+        const tenant = await AtenantpayInfos. findByIdAndUpdate (id,{payment:payment},{new:true})
+        if(!tenant){
+            return res.status(404).json({error:"failed to update payment"});
+        }
+        /*sendSms(
+            tenant.user.lastName,
+            tenant.house.landLordName,
+            tenant.payement,
+            tenant._id,
+            tenant.user.phone);*/
+        
+        return res.status(200).json({message:"success",data:tenant});
+
+      
+}
 
 
 }
